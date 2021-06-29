@@ -1,0 +1,179 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+<div class="fluig-style-guide">
+	<form name="form" role="form">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title" id="painelPedido"><strong>Requisição</strong><span class="glyphicon glyphicon-chevron-up pull-right"></span></h3>
+			</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3 col-xs-12">
+	                        <div class="form-group">
+		                        <label class="control-label" for="tipoDocumento">Tipo do Documento</label>
+		                        <select class="form-control" name="tipoDocumento" id="tipoDocumento">
+		                        	<option value="" selected disabled hidden>Selecionar</option>
+		                        	<option value="NB">NB - Requisição de compra</option>
+		                        	<option value="ZNB">ZNB - Requisição de compra</option>
+		                        	<option value="ZRPM">ZRPM - Requisição de Manutenção</option>
+		                        	<option value="ZOIL">ZOIL - Requisição de Diesel Marítimo</option>
+		                        </select>
+	                        </div>
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label class="control-label" for="codMaterial">Código do Material</label>
+								<input type="text" id="codMaterial" name="codMaterial" class="form-control" onkeypress='return SomenteNumero(event)' maxlength="7">
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label class="control-label" for="negocio">Negócio</label>
+								<input type="text" id="negocio" name="negocio" class="form-control">
+							</div>
+						</div>
+						<div class="col-md-1 col-xs-12">
+							<div class="form-group">
+								<label class="control-label" for="unidade">Unidade</label>
+								<input type="text" id="unidade" name="unidade" class="form-control">
+							</div>
+						</div>
+						<div class="col-md-2 col-xs-12">
+						<div class="form-group">
+							<label class="control-label" for="quantidade">Quantidade</label>
+							<input type="text" id="quantidade" name="quantidade" class="form-control">
+						</div>
+					</div>
+					</div> <!-- fim row 1 -->
+					<div class="row">
+						<div class="col-md-12 col-xs-12">
+							<label class="control-label" for="descMaterial">Descrição material <br>(Em caso de mais de 1 item, favor anexar uma planilha em Excel com as seguintes colunas: Classe cnt/ Nº classe cnt/ Cód material/ Qtde/ Un/ Valor/ Moeda/ Centro).</label>
+							<textarea class="form-control" rows="4" id="descMaterial" name="descMaterial"></textarea>
+						</div>
+					</div> <br/>
+					<div class="row">
+						<div class="col-md-3 col-xs-12">
+							<label class="control-label" for="centroLogistico">Centro logístico</label>
+							<input type="text" id="centroLogistico" name="centroLogistico" class="form-control">
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<label class="control-label" for="organizacaoCompra">Organização de Compra</label>
+							<select class="form-control" name="organizacaoCompra" id="organizacaoCompra">
+								<option value="" selected disabled hidden>Selecionar</option>
+								<option value="CORP">CORP</option>
+								<option value="IRGS">IRGS</option>
+								<option value="ISSA">ISSA</option>
+							</select>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<label class="control-label" for="empresa">Empresa</label>
+							<input type="text" id="empresa" name="empresa" class="form-control">
+						</div>
+					</div><br/>
+					<div class="row">
+						<div class="col-md-4 col-xs-12">
+							<label class="control-label" for="classificacaoContabil">Classificação contábil</label>
+							<select class="form-control" name="classificacaoContabil" id="classificacaoContabil" onChange="casoEstoque()">
+								<option value="" selected disabled hidden>Selecionar</option>
+								<option value="ordem">F (ordem)</option>
+								<option value="centro de custo">K (centro de custo)</option>
+								<option value="projeto">P (projeto)</option>
+								<option value="diagrama de rede">N (diagrama de rede)</option>
+								<option value="estoque">Estoque</option>
+							</select>
+						</div>
+						<div class="col-md-4 col-xs-12">
+							<label class="control-label" for="linhaCompra">Linha de compra</label>
+							<select class="form-control" name="linhaCompra" id="linhaCompra">
+								<option value="Material">Material</option>
+								<option value="Serviço">Serviço</option>
+							</select>
+						</div>
+						<div class="col-md-4 col-xs-12">
+							<label class="control-label" for="centroCustoPepOrdem">Centro de custo | Elemento PEP | Ordem</label>
+							<input type="text" id="centroCustoPepOrdem" name="centroCustoPepOrdem" class="form-control">
+						</div>
+					</div><br/>
+					<div class="row">
+						<div class="col-md-4 col-xs-12">
+							<label class="control-label" for="dataRemessa">Data remessa</label>
+							<input type="text" id="dataRemessa" name="dataRemessa" class="form-control" mask="00/00/0000">
+						</div>
+						<div class="col-md-4 col-xs-12">
+							<label class="control-label" for="valorOrcamento">Valor total</label>
+							<input type="text" id="valorOrcamento" name="valorOrcamento" class="form-control" mask="#00.000.000.000.000,00">
+						</div>
+					</div><br/>
+					<div class="row">
+						<div class="col-md-12 col-xs-12">
+							<label class="control-label" for="enderecoEntrega">Endereço de entrega</label>
+							<textarea class="form-control" rows="2" id="enderecoEntrega" name="enderecoEntrega"></textarea>
+						</div>
+					</div>
+					
+				</div> <!-- fim panel body -->
+		</div> 
+		
+		<div class="panel panel-primary" id="atendente">
+			<div class="panel-heading">
+				<h3 class="panel-title" id="painelPedido"><strong>Status</strong><span class="glyphicon glyphicon-chevron-up pull-right"></span></h3>
+			</div>
+			<div class="panel-body">
+				<div class="radio">
+					<label for="aprovado">
+    					<input type="radio" id="aprovado" value="aprovado" name="aprovacao" checked>
+    					Aprovado.
+    				</label> &nbsp;&nbsp;&nbsp;
+    				<label for="reprovado">
+    					<input type="radio" id="reprovado" value="reprovado" name="aprovacao" checked>
+    					Reprovado.
+    				</label>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-primary" id="anotacao">
+			<div class="panel-heading">
+				<h3 class="panel-title" id="painelPedido"><strong>Anotação</strong><span class="glyphicon glyphicon-chevron-up pull-right"></span></h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<textarea class="form-control" rows="5" id="justificacao" name="justificacao"></textarea>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+</div>
+
+</body>
+</html>
+<script language='JavaScript'>
+	function SomenteNumero(e){
+	    var tecla=(window.event)?event.keyCode:e.which;   
+	    if((tecla>47 && tecla<58)) return true;
+	    else{
+	    	if (tecla==8 || tecla==0) return true;
+		else  return false;
+	    }
+	}
+	
+	function casoEstoque(){
+		var value = document.getElementById("classificacaoContabil").value;
+		
+		if(value == "estoque"){
+			$("#centroCustoPepOrdem").attr("disabled", true);
+			console.log('estoque selecionado!')
+		}else{
+			$("#centroCustoPepOrdem").attr("disabled", false);
+		}	
+	}
+</script>
